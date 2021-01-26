@@ -1,0 +1,24 @@
+<nav class="navbar navbar-expand-sm bg-success mb-2 py-0 navbar-dark">
+  <div class="container">
+    <a href="{% url 'index' %}" class="navbar-brand">App</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="navbarCollapse">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a href="{% url 'index' %}" {% if "/" == request.path %} class="nav-link active" {% else %} class="nav-link"
+            {% endif %}>Home</a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'about' %}" {% if "about" in request.path %} class="nav-link active" {% else %}
+            class="nav-link" {% endif %}>About</a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'listings' %}" {% if "listings" in request.path %} class="nav-link active" {% else %}
+            class="nav-link" {% endif %}>Listings</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

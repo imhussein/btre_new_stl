@@ -1,0 +1,110 @@
+{% extends 'base/base.html' %} {% load humanize %} {% block content %}
+<div class="mt-4">
+  <form action="{% url 'search' %}" method="GET">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group mb-3">
+          <label class="form-label" for="keywords">Keywords</label>
+          <input
+            type="text"
+            id="keywords"
+            name="keywords"
+            placeholder="Keywords"
+            class="form-control"
+          />
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group mb-3">
+          <label class="form-label" for="keywords">City</label>
+          <input
+            type="text"
+            id="city"
+            placeholder="city"
+            name="city"
+            class="form-control"
+          />
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group mb-3">
+          <label for="state" class="form-label">State</label>
+          <select name="state" id="state" class="form-control">
+            <option selected="true" disabled="disabled">State (All)</option>
+            {% for key, value in state_choices.items %}
+            <option value="{{key}}">{{value}}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group mb-3">
+          <label for="bedrooms" class="form-label">Bedrooms</label>
+          <select name="bedrooms" id="bedrooms" class="form-control">
+            <option selected="true" disabled="disabled">Bedrooms (All)</option>
+            {% for key, value in bedroom_choices.items %}
+            <option value="{{key}}">{{value}}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group mb-3">
+          <label for="price" class="form-label">Price</label>
+          <select name="price" class="form-control">
+            <option selected="true" disabled="disabled">Price (All)</option>
+            {% for key, value in price_choices.items %}
+            <option value="{{key}}">{{value}}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div style="margin-top: 34px">
+          <button type="submit" class="btn btn-sm btn-success">Submit</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="mt-4">
+  {% if listings %}
+  <div class="row">
+    {% for listing in listings %}
+    <div class="col-md-6 mb-3">
+      <div class="card">
+        <img
+          class="card-img-top"
+          src="{{listing.photo_main.url}}"
+          alt="Card image cap"
+          style="cursor: pointer"
+          onclick="onImageClick.call(null, '{{listing.id}}')"
+        />
+        <div class="card-body">
+          <p class="text-muted">{{listing.title}}</p>
+          <p class="badge bg-success">$ {{listing.price | intcomma}}</p>
+          <p class="text-muted">
+            {{listing.city}} {{listing.state}} {{listing.zipcode}}
+          </p>
+          <p class="text-muted">{{listing.sqft}}</p>
+          <p class="text-muted">{{listing.garage}}</p>
+          <p class="text-muted">{{listing.bedrooms}}</p>
+          <p class="text-muted">{{listing.realtour}}</p>
+          <p class="card-text">{{listing.list_date | timesince}}</p>
+        </div>
+        <div class="card-footer">
+          <a
+            href="{% url 'listing' listing.id %}"
+            class="btn btn-sm btn-success"
+            >Show More</a
+          >
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <h1>No Listings Found</h1>
+  {% endif %}
+</div>
+{% endblock %}
