@@ -18,6 +18,30 @@
           <a href="{% url 'listings' %}" {% if "listings" in request.path %} class="nav-link active" {% else %}
             class="nav-link" {% endif %}>Listings</a>
         </li>
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a href="{% url 'dashboard' %}" {% if "dashboard" in request.path %} class="nav-link active" {% else %}
+            class="nav-link" {% endif %}>{{user.username}}&nbsp;Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a href="javascript:{document.getElementById('logout').submit()}" class="nav-link" class="nav-link">
+            Logout
+            <form action="{% url 'logout' %}" method="POST" id="logout">
+              {%  csrf_token %}
+              <input type="hidden">
+            </form>
+          </a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a href="{% url 'login' %}" {% if "login" in request.path %} class="nav-link active" {% else %}
+            class="nav-link" {% endif %}>Login</a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'register' %}" {% if "register" in request.path %} class="nav-link active" {% else %}
+            class="nav-link" {% endif %}>Register</a>
+        </li>
+        {% endif %}
       </ul>
     </div>
   </div>

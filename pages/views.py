@@ -3,8 +3,6 @@ from listings.models import Listing
 from realtors.models import Realtor
 from listings.choices import bedroom_choices, price_choices, state_choices
 
-# Create your views here.
-
 
 def index(request):
     listings = Listing.objects.order_by(

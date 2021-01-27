@@ -24,7 +24,7 @@ def listing(request, listing_id):
     listing = get_object_or_404(Listing, pk=listing_id)
     context = {
         "listing": listing,
-        "title": f"Listing {listing_id}",
+        "title": f"Btre | {listing.title}",
     }
     return render(request, "listings/listing.html", context=context)
 
@@ -66,12 +66,4 @@ def search(request):
     }
     return render(request, "listings/search.html", context)
 
-# Fix Login Page - Add New Style
-# Overview And View More Less Size And Center
-# Revenu Remove The Broder Left
-# Overview Popup Increase Padding
-# Table Header Remove Propties And Stella Tower In all 4 tabs
 # Widgets Size
-# View Btn Change Style
-# Change Font style For DropDown
-# Empty Popup For View In Reports Page
